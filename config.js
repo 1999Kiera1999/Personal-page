@@ -21,16 +21,15 @@ const siteConfig = {
 // 修改选择器匹配新ID
 window.onload = function() {
     document.title = siteConfig.pageTitle;
+    document.getElementById('logo').textContent = siteConfig.logoText;
+    document.getElementById('welcome').textContent = siteConfig.welcomeMessage;
+    document.getElementById('quote').innerHTML = `"${siteConfig.quote}"<br>- ${siteConfig.quoteAuthor}`;
     
-    // 使用新ID选择元素
-    document.getElementById('logo').innerHTML = siteConfig.logoText;
-    document.getElementById('welcome').innerHTML = siteConfig.welcomeMessage;
-    document.getElementById('quote').innerHTML = `"${siteConfig.quote}" <br> - ${siteConfig.quoteAuthor}`;
-    
-    // 时钟相关函数修改
+    // 时钟功能
     function updateTime() {
-        document.getElementById('clock').innerHTML = 
-            `${String(new Date().getHours()).padStart(2,'0')}:${String(new Date().getMinutes()).padStart(2,'0')}:${String(new Date().getSeconds()).padStart(2,'0')}`;
+        const now = new Date();
+        document.getElementById('clock').textContent = 
+            `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
     }
     
     function updateDateTime() {
