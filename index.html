@@ -184,6 +184,11 @@
                 this.style.boxShadow = '';
             });
         });
+	// 调试代码（放在config.js引入之后）
+  console.log('配置文件加载状态:', typeof siteConfig !== 'undefined' ? '成功' : '失败');
+  if(typeof siteConfig === 'undefined') {
+    console.error('config.js未正确加载，请检查：\n1. 文件路径\n2. 语法错误');
+  }
     </script>
 </body>
 </html>
