@@ -1,10 +1,10 @@
 //可变化的
 const siteConfig = {
-    pageTitle: "无事躺平",
-    logoText: "无事躺平",
-    welcomeMessage: "欲望",
-    quote: "Endless desire can never bring satisfaction, but only distress.",
-    quoteAuthor: "— Epicurus",
+    pageTitle: "My blog",
+    logoText: "ZQY's blog",
+    welcomeMessage: "ISFP",
+    quote: "I seek for pleasure.",
+    quoteAuthor: " ",
     navLinks: [
         { text: "博客", url: "https://likey.us.kg/" },
         { text: "资源站", url: "https://v0v.us.kg/" },

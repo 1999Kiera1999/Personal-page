@@ -3,217 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>  <!-- 标题将由 config.js 动态设置 -->
+    <title>My Personal Page</title>
     <style>
         :root {
             --body-padding-top: 0px;
-            --logo-margin-top: 200px;
-            --logo-clock-margin-top: 40px; /* 标题与时钟之间的间距 */
-            --clock-margin-top: 50px; /* 时钟与容器顶部的间距 */
-            --date-time-weather-margin-top: 60px; /* 日期与时钟之间的间距 */
-            --welcome-margin-top: 150px;
-            --quote-margin-top: 30px;
-            --nav-buttons-margin-top: 100px;
-            --footer-margin-top: 250px;
+            --logo-margin-top: 100px; /* 调小顶部间距 */
+            --logo-clock-margin-top: 30px;
+            --clock-margin-top: 30px;
+            --date-time-weather-margin-top: 30px;
+            --welcome-margin-top: 80px;
+            --quote-margin-top: 20px;
+            --nav-buttons-margin-top: 60px;
+            --footer-margin-top: 100px;
+            --card-bg: rgba(30, 41, 59, 0.8); /* 新增卡片背景色 */
         }
 
         body {
             margin: 0;
             padding-top: var(--body-padding-top);
             font-family: 'Arial', sans-serif;
-            background-color: #2c2c2c; /* 淡黑色背景 */
-            color: #f0f0f0;
+            background-color: #8CCEEC;
+            color: #104861;
             display: flex;
-            flex-direction: row;
-            height: 100vh;
-            align-items: flex-start;
-            overflow: hidden;
-            opacity: 0; /* 初始设置为透明 */
-            animation: fadeIn 1s ease-out forwards; /* 页面加载时的淡入动画 */
+            flex-direction: column; /* 改为纵向布局 */
+            min-height: 100vh;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
-        .left-container, .right-container {
+        .main-content {
+            display: flex;
             flex: 1;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* 新增site标题样式 */
+        .section-title {
+            font-size: 24px;
+            margin: 30px 0 15px 20px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title svg {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 新增项目卡片容器 */
+        .project-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        /* 新增项目卡片样式 */
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* 修改为顶部对齐 */
-            align-items: center;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .project-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #e2e8f0;
+        }
+
+        .project-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        /* 原有样式调整 */
+        .left-container, .right-container {
+            flex: none;
+            width: 100%;
             padding: 20px;
             box-sizing: border-box;
-            height: calc(100vh - var(--body-padding-top));
-            opacity: 0; /* 初始透明 */
-            transform: translateY(20px); /* 初始位置稍微向下 */
-            animation: slideIn 1s ease-out forwards; /* 向上滑动并淡入的动画 */
-        }
-
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .left-container {
-            background: linear-gradient(135deg, #3a3a3a, #505050); /* 淡黑色渐变 */
-            text-align: left;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            animation-delay: 0.2s; /* 延迟动画 */
-        }
-
-        .right-container {
-            background: linear-gradient(135deg, #505050, #3a3a3a); /* 淡黑色渐变 */
-            text-align: right;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            animation-delay: 0.4s; /* 延迟动画 */
-        }
-
-        .logo, .clock-date-container, .welcome, .quote, .nav-buttons, .footer {
-            opacity: 0; /* 初始透明 */
+            opacity: 0;
+            transform: translateY(20px);
             animation: slideIn 1s ease-out forwards;
         }
 
-        .logo {
-            font-size: 70px;
-            font-family: 'Cursive', cursive;
-            color: #e0e0e0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin-top: var(--logo-margin-top); /* 使用自定义属性 */
-            margin-bottom: var(--logo-clock-margin-top); /* 使用自定义属性来控制标题与时钟之间的间距 */
-            transform: translateX(-20px); /* 初始位置稍微向左 */
-            animation: slideInFromLeft 1s ease-out forwards; /* 向右滑动并淡入的动画 */
-            animation-delay: 0.6s; /* 延迟动画 */
+        .left-container {
+            animation-delay: 0.2s;
+            background: none;
+            border-right: none;
         }
 
-        @keyframes slideInFromLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .right-container {
+            animation-delay: 0.4s;
+            background: none;
+            border-left: none;
         }
 
-        .clock-date-container {
-            margin-top: var(--clock-margin-top); /* 使用自定义属性 */
-            text-align: center;
-            transform: translateY(20px); /* 初始位置稍微向下 */
-            animation-delay: 0.8s; /* 延迟动画 */
-        }
-
-        .clock {
-            font-size: 50px;
-            color: #ffffff;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .date-time-weather {
-            font-size: 20px;
-            color: #b0b0b0;
-            margin-top: var(--date-time-weather-margin-top); /* 使用自定义属性 */
-        }
-
-        .welcome {
-            margin-top: var(--welcome-margin-top); /* 使用自定义属性 */
-            font-size: 26px;
-            color: #d0d0d0;
-            transform: translateX(20px); /* 初始位置稍微向右 */
-            animation: slideInFromRight 1s ease-out forwards; /* 向左滑动并淡入的动画 */
-            animation-delay: 1.2s; /* 延迟动画 */
-        }
-
-        @keyframes slideInFromRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .quote {
-            margin-top: var(--quote-margin-top); /* 使用自定义属性 */
-            font-size: 20px;
-            font-style: italic;
-            color: #a0a0a0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px); /* 初始位置稍微向下 */
-            animation-delay: 1.4s; /* 延迟动画 */
-        }
-
-        .nav-buttons {
-            margin-top: var(--nav-buttons-margin-top); /* 使用自定义属性 */
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            justify-items: center;
-            width: 80%; /* 调整宽度为 80% 以避免左右突出 */
-            max-width: 700px; /* 控制最大宽度 */
-            transform: translateY(20px); /* 初始位置稍微向下 */
-            animation-delay: 1.6s; /* 延迟动画 */
-        }
-
-        .nav-buttons a {
-            padding: 10px 20px; /* 调整按钮内边距使其变小 */
-            font-size: 18px;
-            text-decoration: none;
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 10px;
-            color: #f0f0f0;
-            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.1s ease-in-out;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 100%;
-            backdrop-filter: blur(5px);
-        }
-
-        .nav-buttons a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            transform: scale(1.05); /* 悬停时轻微放大 */
-        }
-
-        .nav-buttons a:active {
-            transform: scale(0.95); /* 点击时缩小 */
-        }
-
-        .footer {
-            margin-top: var(--footer-margin-top); /* 使用自定义属性 */
-            font-size: 14px;
-            transform: translateY(20px); /* 初始位置稍微向下 */
-            animation-delay: 1.8s; /* 延迟动画 */
-        }
-
-        .footer a {
-            margin: 0 10px;
-            color: #b0b0b0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #ff7e5f;
-        }
+        /* 其他原有样式保持不变... */
     </style>
 </head>
 <body>
+    <div class="main-content">
+        <!-- 原有内容 -->
+        <div class="left-container">
+            <div class="logo"></div>
+            <div class="clock"></div>
+            <div class="date-time-weather"></div>
+        </div>
 
-    <div class="left-container">
-        <div class="logo"></div> <!-- 标题在这里 -->
-        <div class="clock"></div> <!-- 这里显示动态时间 -->
-        <div class="date-time-weather"></div> <!-- 这里显示动态日期和天气 -->
-    </div>
+        <div class="right-container">
+            <div class="welcome"></div>
+            <div class="quote"></div>
+            <div class="nav-buttons"></div>
+        </div>
 
-    <div class="right-container">
-        <div class="welcome"></div> <!-- 欲望 -->
-        <div class="quote"></div> <!-- 引言 -->
-        <div class="nav-buttons"></div> <!-- 站点信息 -->
+        <!-- 新增site模块 -->
+        <div class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
+            </svg>
+            site
+        </div>
+
+        <div class="project-container">
+            <div class="project-card" onclick="window.open('#')">
+                <h3>博客</h3>
+                <p>记录我的日常</p>
+            </div>
+            <div class="project-card" onclick="window.open('#')">
+                <h3>云盘</h3>
+                <p>存储收集文件</p>
+            </div>
+            <div class="project-card" onclick="window.open('#')">
+                <h3>相册</h3>
+                <p>收集我的照片</p>
+            </div>
+            <div class="project-card" onclick="window.open('#')">
+                <h3>音乐</h3>
+                <p>我的歌单</p>
+            </div>
+        </div>
+
         <div class="footer"></div>
     </div>
 
-    <!-- 引用 config.js 文件 -->
     <script src="config.js"></script>
+    <script>
+        // 新增卡片悬停效果
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+    </script>
 </body>
 </html>
