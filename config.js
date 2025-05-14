@@ -18,74 +18,54 @@ const siteConfig = {
         { text: "Email", url: "mailto:ll01@anche.no" }
     ]
 };
-// 修改选择器匹配新ID
-window.onload = function() {
+// 等待所有动画完成后再执行
+document.addEventListener('DOMContentLoaded', function() {
+    // 基础设置
     document.title = siteConfig.pageTitle;
-    document.getElementById('logo').textContent = siteConfig.logoText;
-    document.getElementById('welcome').textContent = siteConfig.welcomeMessage;
-    document.getElementById('quote').innerHTML = `"${siteConfig.quote}"<br>- ${siteConfig.quoteAuthor}`;
     
-    // 时钟功能
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('clock').textContent = 
-            `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-    }
-    
-    function updateDateTime() {
-        const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-        const now = new Date();
-        document.getElementById('datetime').innerHTML = 
-            `${now.getFullYear()}年${String(now.getMonth()+1).padStart(2,'0')}月${String(now.getDate()).padStart(2,'0')}日 ${days[now.getDay()]}`;
-    }
-    
-    // 初始化并设置定时器
-    updateDateTime();
-    setInterval(updateTime, 1000);
-    
-    // 导航按钮生成（保持原有逻辑）
-    const navContainer = document.getElementById('nav-buttons');
-    siteConfig.navLinks.forEach(link => {
-        const anchor = document.createElement('a');
-        anchor.href = link.url;
-        anchor.textContent = link.text;
-        anchor.target = "_blank";
-        navContainer.appendChild(anchor);
-    });
-}
+    // 等待logo动画完成(600ms延迟)
+    setTimeout(function() {
+        document.querySelector('.logo').textContent = siteConfig.logoText;
+        document.querySelector('.welcome').textContent = siteConfig.welcomeMessage;
+        document.querySelector('.quote').innerHTML = `"${siteConfig.quote}"<br>- ${siteConfig.quoteAuthor}`;
+        
+        // 时钟功能
+        function updateTime() {
+            const now = new Date();
+            document.querySelector('.clock').textContent = 
+                `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+        }
 
+        function updateDateTime() {
+            const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+            const now = new Date();
+            document.querySelector('.date-time-weather').innerHTML = 
+                `${now.getFullYear()}年${String(now.getMonth()+1).padStart(2,'0')}月${String(now.getDate()).padStart(2,'0')}日 ${days[now.getDay()]}`;
+        }
 
-    const footerContainer = document.querySelector('.footer');
-    siteConfig.footerLinks.forEach(link => {
-        const anchor = document.createElement('a');
-        anchor.href = link.url;
-        anchor.textContent = link.text;
-        anchor.target = "_blank";
-        footerContainer.appendChild(anchor);
-    });
-};
+        // 立即执行并设置定时器
+        updateDateTime();
+        setInterval(updateTime, 1000);
+        updateTime(); // 立即显示时间
 
-function updateTime() {
-    const clockElement = document.querySelector('.clock');
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    clockElement.innerHTML = `${hours}:${minutes}:${seconds}`;
-}
+        // 导航按钮
+        const navContainer = document.querySelector('.nav-buttons');
+        siteConfig.navLinks.forEach(link => {
+            const anchor = document.createElement('a');
+            anchor.href = link.url;
+            anchor.textContent = link.text;
+            anchor.target = "_blank";
+            navContainer.appendChild(anchor);
+        });
 
-function updateDateTime() {
-    const dateTimeElement = document.querySelector('.date-time-weather');
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要+1
-    const date = String(now.getDate()).padStart(2, '0');
-    const day = now.getDay();
-    const dayNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-    const formattedDate = `${year}年${month}月${date}日 ${dayNames[day]}`;
-
-    const weatherInfo = ``;
-    dateTimeElement.innerHTML = `${formattedDate} <br> ${weatherInfo}`;
-
-    updateTime();
-}
+        // 页脚链接
+        const footerContainer = document.querySelector('.footer');
+        siteConfig.footerLinks.forEach(link => {
+            const anchor = document.createElement('a');
+            anchor.href = link.url;
+            anchor.textContent = link.text;
+            anchor.target = "_blank";
+            footerContainer.appendChild(anchor);
+        });
+    }, 600); // 等待所有入场动画完成
+});
