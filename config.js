@@ -18,18 +18,34 @@ const siteConfig = {
         { text: "Email", url: "mailto:ll01@anche.no" }
     ]
 };
-
+// 修改选择器匹配新ID
 window.onload = function() {
     document.title = siteConfig.pageTitle;
-
-    document.querySelector('.logo').innerHTML = siteConfig.logoText;
-    document.querySelector('.welcome').innerHTML = siteConfig.welcomeMessage;
-    document.querySelector('.quote').innerHTML = `"${siteConfig.quote}" <br> - ${siteConfig.quoteAuthor}`;
-
+    
+    // 使用新ID选择元素
+    document.getElementById('logo').innerHTML = siteConfig.logoText;
+    document.getElementById('welcome').innerHTML = siteConfig.welcomeMessage;
+    document.getElementById('quote').innerHTML = `"${siteConfig.quote}" <br> - ${siteConfig.quoteAuthor}`;
+    
+    // 时钟相关函数修改
+    function updateTime() {
+        document.getElementById('clock').innerHTML = 
+            `${String(new Date().getHours()).padStart(2,'0')}:${String(new Date().getMinutes()).padStart(2,'0')}:${String(new Date().getSeconds()).padStart(2,'0')}`;
+    }
+    
+    function updateDateTime() {
+        const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+        const now = new Date();
+        document.getElementById('datetime').innerHTML = 
+            `${now.getFullYear()}年${String(now.getMonth()+1).padStart(2,'0')}月${String(now.getDate()).padStart(2,'0')}日 ${days[now.getDay()]}`;
+    }
+    
+    // 初始化并设置定时器
     updateDateTime();
     setInterval(updateTime, 1000);
-
-    const navContainer = document.querySelector('.nav-buttons');
+    
+    // 导航按钮生成（保持原有逻辑）
+    const navContainer = document.getElementById('nav-buttons');
     siteConfig.navLinks.forEach(link => {
         const anchor = document.createElement('a');
         anchor.href = link.url;
@@ -37,6 +53,8 @@ window.onload = function() {
         anchor.target = "_blank";
         navContainer.appendChild(anchor);
     });
+}
+
 
     const footerContainer = document.querySelector('.footer');
     siteConfig.footerLinks.forEach(link => {
