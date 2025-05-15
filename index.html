@@ -326,5 +326,47 @@
             });
         });
     </script>
+        <!-- 新增的footer部分 -->
+    <footer id="footer">
+        <div class="footer-buttons">
+            <button class="footer-btn">联系我</button>
+            <button class="footer-btn">订阅</button>
+            <button class="footer-btn">帮助</button>
+            <button class="footer-btn">反馈</button>
+        </div>
+    </footer>
+
+    <style>
+        /* 新增的footer样式 */
+        #footer {
+            margin-top: var(--footer-margin-top);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .footer-btn {
+            font-size: 15px;
+            padding: 8px 16px;
+            background-color: rgba(30, 41, 59, 0.8);
+            color: #e2e8f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-btn:hover {
+            background-color: rgba(40, 40, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</body>
 </body>
 </html>
