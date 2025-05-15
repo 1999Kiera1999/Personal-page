@@ -9,8 +9,37 @@ const siteConfig = {
         { text: "云盘", url: "#" },
         { text: "相册", url: "#" },
         { text: "音乐", url: "https://i.y.qq.com/n2/m/share/details/taoge.html?id=8441156017" }
+    ],
+    // 新增footer按钮配置
+    footerButtons: [
+        { text: "联系我", action: "contact" },
+        { text: "订阅", action: "subscribe" },
+        { text: "帮助", action: "help" },
+        { text: "反馈", action: "feedback" }
     ]
 };
+
+// 新增footer按钮点击处理函数
+function handleFooterButtonClick(action) {
+    switch(action) {
+        case 'contact':
+            // 处理联系我逻辑
+            console.log('联系我按钮被点击');
+            break;
+        case 'subscribe':
+            // 处理订阅逻辑
+            console.log('订阅按钮被点击');
+            break;
+        case 'help':
+            // 处理帮助逻辑
+            console.log('帮助按钮被点击');
+            break;
+        case 'feedback':
+            // 处理反馈逻辑
+            console.log('反馈按钮被点击');
+            break;
+    }
+}
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
@@ -43,6 +72,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // 立即执行并设置定时器
         updateClock();
         setInterval(updateClock, 1000);
+
+        // 创建并配置footer按钮
+        const footerContainer = document.getElementById('footer');
+        siteConfig.footerButtons.forEach(button => {
+            const btn = document.createElement('button');
+            btn.className = 'footer-btn';
+            btn.textContent = button.text;
+            
+            // 添加点击事件处理
+            btn.addEventListener('click', function() {
+                handleFooterButtonClick(button.action);
+            });
+            
+            footerContainer.querySelector('.footer-buttons').appendChild(btn);
+        });
 
         // 卡片悬停效果
         document.querySelectorAll('.site-card').forEach((card, index) => {
